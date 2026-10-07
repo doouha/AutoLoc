@@ -1,0 +1,33 @@
+package tn.esprit.autoloc.domain;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
+@Entity
+@Table(name = "agence")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Agence {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    @Column(nullable = false, length = 100)
+    private String nom;
+
+    @NotBlank
+    @Column(nullable = false, length = 50)
+    private String ville;
+
+    @Column(length = 255)
+    private String adresse;
+
+    @Column(length = 20)
+    private String telephone;
+}
