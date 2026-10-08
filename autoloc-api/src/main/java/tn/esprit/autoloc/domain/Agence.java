@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "agence")
 @Getter
@@ -30,4 +33,14 @@ public class Agence {
 
     @Column(length = 20)
     private String telephone;
+
+    // An agency load includes its vehicles. Persisting an agency also persists
+    // newly attached vehicles; removing an agency does not remove employees.
+    @OneToMany(mappedBy = "agence", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @Builder.Default
+    private List<tn.esprit.autoloc.domain.Vehicule> vehicules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<tn.esprit.autoloc.domain.Employe> employes = new ArrayList<>();
 }

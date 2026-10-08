@@ -30,4 +30,8 @@ public class Paiement {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ModePaiement modePaiement;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contrat_id")
+    private Contrat contrat;
 }

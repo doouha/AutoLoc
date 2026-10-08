@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "contrat")
@@ -27,4 +29,11 @@ public class Contrat {
 
     @Column(nullable = false)
     private Boolean valide;
+
+    @OneToMany(mappedBy = "contrat", fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<tn.esprit.autoloc.domain.Paiement> paiements = new ArrayList<>();
+
+    @OneToOne(mappedBy = "contrat", fetch = FetchType.LAZY)
+    private tn.esprit.autoloc.domain.Reservation reservation;
 }

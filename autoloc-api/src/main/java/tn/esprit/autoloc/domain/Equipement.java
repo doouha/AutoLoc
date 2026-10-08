@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "equipement")
 @Getter
@@ -20,4 +23,8 @@ public class Equipement {
     @NotBlank
     @Column(nullable = false, unique = true, length = 100)
     private String libelle;
+
+    @ManyToMany(mappedBy = "equipements")
+    @Builder.Default
+    private Set<tn.esprit.autoloc.domain.Vehicule> vehicules = new HashSet<>();
 }

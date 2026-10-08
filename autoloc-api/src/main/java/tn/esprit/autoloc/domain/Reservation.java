@@ -29,5 +29,17 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatutReservation statut;
+    private tn.esprit.autoloc.domain.StatutReservation statut;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicule_id")
+    private tn.esprit.autoloc.domain.Vehicule vehicule;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contrat_id", unique = true)
+    private Contrat contrat;
 }

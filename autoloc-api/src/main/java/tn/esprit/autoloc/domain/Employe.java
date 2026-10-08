@@ -27,5 +27,9 @@ public class Employe {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RoleEmploye role;
+    private tn.esprit.autoloc.domain.RoleEmploye role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agence_id")
+    private Agence agence;
 }
