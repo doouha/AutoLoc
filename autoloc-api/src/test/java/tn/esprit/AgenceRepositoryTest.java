@@ -80,22 +80,30 @@ class AgenceRepositoryTest {
             addAgence(fullAgenceRepository, "pagination");
         }
 
-        Page<Agence> page = fullAgenceRepository.findAll(
+        Page<Agence> premierePage = fullAgenceRepository.findAll(
                 PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "id")));
-        assertEquals(2, page.getSize(), "La pagination doit contenir deux agences par page.");
-        assertFalse(page.getContent().isEmpty(), "La page ne contient aucune agence.");
-        for (int i = 1; i < page.getContent().size(); i++) {
-            assertTrue(page.getContent().get(i - 1).getId() > page.getContent().get(i).getId(),
-                    "Les agences de la page ne sont pas triées par id décroissant.");
-        }
+        assertEquals(2, premierePage.getSize(), "La pagination doit contenir deux agences par page.");
+        assertFalse(premierePage.getContent().isEmpty(), "Aucune agence trouvée.");
 
-        System.out.println("Nombre total de pages : " + page.getTotalPages());
-        System.out.println("Page en cours : " + (page.getNumber() + 1));
-        System.out.println("Agences de cette page :");
-        page.getContent().forEach(agence -> System.out.println(
-                "id=" + agence.getId() + ", nom=" + agence.getNom()
-                        + ", ville=" + agence.getVille() + ", adresse=" + agence.getAdresse()
-                        + ", téléphone=" + agence.getTelephone()));
+        int nombreTotalPages = premierePage.getTotalPages();
+        System.out.println("Nombre total de pages : " + nombreTotalPages);
+
+        for (int numeroPage = 0; numeroPage < nombreTotalPages; numeroPage++) {
+            Page<Agence> page = fullAgenceRepository.findAll(
+                    PageRequest.of(numeroPage, 2, Sort.by(Sort.Direction.DESC, "id")));
+            assertFalse(page.getContent().isEmpty(), "La page " + (numeroPage + 1) + " est vide.");
+            for (int i = 1; i < page.getContent().size(); i++) {
+                assertTrue(page.getContent().get(i - 1).getId() > page.getContent().get(i).getId(),
+                        "Les agences de la page ne sont pas triées par id décroissant.");
+            }
+
+            System.out.println("Page en cours : " + (page.getNumber() + 1));
+            System.out.println("Agences de cette page :");
+            page.getContent().forEach(agence -> System.out.println(
+                    "id=" + agence.getId() + ", nom=" + agence.getNom()
+                            + ", ville=" + agence.getVille() + ", adresse=" + agence.getAdresse()
+                            + ", téléphone=" + agence.getTelephone()));
+        }
     }
 
     private void addAgence(CrudRepository<Agence, Long> repository, String typeDepot) {
