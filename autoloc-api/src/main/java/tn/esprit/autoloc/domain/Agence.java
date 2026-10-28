@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -36,6 +37,7 @@ public class Agence {
 
     // An agency load includes its vehicles. Persisting an agency also persists
     // newly attached vehicles; removing an agency does not remove employees.
+    @JsonManagedReference("agence-vehicules")
     @OneToMany(mappedBy = "agence", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @Builder.Default
     private List<tn.esprit.autoloc.domain.Vehicule> vehicules = new ArrayList<>();

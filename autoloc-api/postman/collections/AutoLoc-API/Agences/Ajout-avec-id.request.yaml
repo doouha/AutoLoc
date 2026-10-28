@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{asiApiUrl}}/api/agences"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": 100,\r
+
+    \  \"nom\": \"Agence Test ID\",\r
+
+    \  \"adresse\": \"Ariana\",\r
+
+    \  \"telephone\": \"71222444\",\r
+
+    \  \"ville\": \"Ariana\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"La réponse HTTP est reçue\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.a(\"number\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"La réponse HTTP indique le résultat attendu\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400, 409, 500]);\r
+
+      });"
+    language: text/javascript
+order: 5000

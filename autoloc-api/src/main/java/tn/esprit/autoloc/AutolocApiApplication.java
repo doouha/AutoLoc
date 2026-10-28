@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "tn.esprit")
 @EntityScan(basePackages = "tn.esprit.autoloc.domain")
 @EnableJpaRepositories(basePackages = "tn.esprit.repository")
 public class AutolocApiApplication {

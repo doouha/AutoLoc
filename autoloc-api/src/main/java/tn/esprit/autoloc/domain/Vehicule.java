@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -50,6 +51,7 @@ public class Vehicule {
     @Column(nullable = false)
     private CategorieVehicule categorie;
 
+    @JsonBackReference("agence-vehicules")
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "agence_id")
     private Agence agence;

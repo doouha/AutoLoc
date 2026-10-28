@@ -1,0 +1,45 @@
+$kind: http-request
+url: "{{asiApiUrl}}/api/agences"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nom\": \"Agence Test\",\r
+
+    \  \"adresse\": \"Tunis\",\r
+
+    \  \"telephone\": \"71222333\",\r
+
+    \  \"ville\": \"Tunis\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Ajout sans ID : statut HTTP correct\", function () {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"L'agence ajoutée possède un ID\", function () {\r
+
+      \    const data = pm.response.json();\r
+
+      \    pm.expect(data.id).to.exist;\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Le nom de l'agence est correct\", function () {\r
+
+      \    const data = pm.response.json();\r
+
+      \    pm.expect(data.nom).to.eql(\"Agence Test\");\r
+
+      });"
+    language: text/javascript
+order: 4000

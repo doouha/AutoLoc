@@ -1,0 +1,6 @@
+workspace:
+  id: 19e89204-0da9-4210-8b46-cd4af21c51a7
+cloudResources:
+  collections:
+    ../postman/collections/AutoLoc-API: 58796616-564bb1b9-450a-433f-a1ed-3b3c4154f7cb
+    ../postman/collections/My Collection: 58796616-a8c51707-1362-4a42-b636-52e04156c112
